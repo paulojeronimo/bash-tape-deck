@@ -1,0 +1,18 @@
+= Requirements
+
+== For <<usage-via-scripts,usage via scripts>>
+
+* A Bash terminal
+* `tree`
+* `git`
+* `yq`
+* `batcat`
+* `figlet`
+* `toilet`
+
+TIP: To check the complete list of requirements, read the link:docker/Dockerfile[]
+
+== For <<usage-via-docker,usage via docker>>
+
+* A Bash terminal
+* `docker`

@@ -1,0 +1,16 @@
+// URIs
+:uri-agentskills: https://agentskills.io
+:uri-docker: https://www.docker.com/
+:uri-development-containers: https://containers.dev/
+:uri-github-codespaces: https://github.com/features/codespaces
+:uri-lxd: https://linuxcontainers.org/lxd/
+:uri-katacoda: https://www.katacoda.com/
+:uri-bash-tape: https://github.com/paulojeronimo/bash-tape
+// Attributes
+:Docker: {uri-docker}[Docker^]
+:DevelopmentContainers: {uri-development-containers}[Development Containers^]
+:GitHubCodespaces: {uri-github-codespaces}[GitHub Codespaces^]
+:LXD: {uri-lxd}[LXD^]
+:AgentSkills: {uri-agentskills}[Agent Skills^]
+:Katacoda: {uri-katacoda}[Katacoda^]
+:BashTape: {uri-bash-tape}[Bash Tape^]

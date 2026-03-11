@@ -1,0 +1,70 @@
+Tree                                 Description
+-----------------------------------  -----------
+.devcontainer                        Development Container assets for local and cloud workspaces.
++-- Dockerfile                       Dev Container image definition for local and Codespaces development.
++-- devcontainer.json                Dev Container configuration consumed by supported editors and the devcontainer CLI.
+\-- post-start.sh                    Post-start hook that prepares the workspace defaults inside the Dev Container.
+.gitignore                           Root ignore rules for generated and local-only files.
+AGENTS.md                            Repository-specific agent rules for code generation, testing, and commits.
+LICENSE                              MIT license for the project.
+README.adoc                          Main project document assembled from the section files in docs/.
+diagrams                             PlantUML source diagrams used by the documentation.
++-- architecture-components.puml     PlantUML diagram describing the main Bash Tape components.
++-- architecture-docker.puml         PlantUML diagram describing the Docker-oriented runtime flow.
++-- architecture-playback-flow.puml  PlantUML diagram describing playback behavior and navigation.
+\-- architecture-workdir.puml        PlantUML diagram describing workspace and state directories.
+docker                               Docker runtime assets and wrapper scripts.
++-- Dockerfile                       Runtime Docker image definition used by the Bash Tape engine.
++-- bin                              Container entrypoint helpers.
+|   \-- bash-tape                    Container entrypoint that dispatches to play and rewind.
++-- build.sh                         Wrapper that builds the engine image and sample-specific images.
++-- common.sh                        Shared functions and defaults used by the Docker wrapper scripts.
+\-- run.sh                           Wrapper that runs tapes and sample-specific container commands.
+docs                                 AsciiDoc source files that compose the main README.
++-- _                                Shared documentation fragments.
+|   \-- attributes.adoc              Shared AsciiDoc attributes reused across the documentation set.
++-- architecture.adoc                Architecture section of the README.
++-- author.adoc                      Author section of the README.
++-- current-capabilities.adoc        Current capabilities section of the README.
++-- current-parser-limitations.adoc  Documentation of the current parser constraints and tradeoffs.
++-- development-model.adoc           Development model section of the README.
++-- files.adoc                       Literal wrapper that includes docs/files.txt in the README.
++-- files.adoc.sh                    Generator for docs/files.txt and docs/files.adoc.
++-- files.txt                        Generated two-column file inventory rendered inside docs/files.adoc.
++-- license.adoc                     License section of the README.
++-- navigation.adoc                  Navigation section of the README.
++-- next-steps.adoc                  Planned work and roadmap section of the README.
++-- references.adoc                  Reference links section of the README.
++-- requirements.adoc                Requirements section of the README.
++-- step-file-format.adoc            Documentation for the tape step file format.
++-- tests.adoc                       Testing section of the README.
++-- usage.adoc                       Usage section of the README.
+\-- what-this-project-does.adoc      Project overview section of the README.
+functions.sh                         Shared shell functions for playback, rendering, logging, and cassette art.
+images                               Image assets referenced by the documentation.
+\-- art.png                          Rendered artwork displayed at the top of the README.
+play.sh                              Interactive tape player for local execution.
+rewind.sh                            Tape rewind dispatcher for local execution.
+samples                              Public sample tapes shipped with the project.
++-- .gitignore                       Ignore rules for generated content under public samples.
+\-- fibonacci                        Sample tutorial that teaches Bash through Fibonacci implementations.
+|   +-- .gitignore                   Ignore rules for generated files in the Fibonacci sample.
+|   +-- docker.extend.sh             Sample-specific Docker extensions for the Fibonacci tape.
+|   +-- steps.1.rewind.sh            Rewind logic for the first Fibonacci tape.
+|   +-- steps.1.sh                   First Fibonacci tape.
+|   +-- steps.2.rewind.sh            Rewind logic for the second Fibonacci tape.
+|   +-- steps.2.sh                   Second Fibonacci tape.
+|   +-- steps.3.rewind.sh            Rewind logic for the third Fibonacci tape.
+|   +-- steps.3.sh                   Third Fibonacci tape.
+|   \-- steps.yaml                   Metadata and narration content for the Fibonacci tapes.
+tests                                Automated test suite and fixtures.
++-- fixtures                         Static test fixtures used by integration tests.
+    \-- docker-sample                Fixture tape used to exercise the Docker wrapper end to end.
+    |   +-- steps.1.sh               Fixture tape used by Docker integration tests.
+    |   +-- steps.begin.sh           Fixture initialization hook used by Docker integration tests.
+    |   +-- steps.end.sh             Fixture cleanup hook used by Docker integration tests.
+    |   \-- steps.yaml               Fixture metadata used by Docker integration tests.
++-- integration                      Integration tests that validate the main user flows.
+    +-- test-devcontainer-config.sh  Integration test that validates the Dev Container configuration files.
+    \-- test-docker-wrapper.sh       Integration test that exercises the Docker wrappers end to end.
+\-- run.sh                           Test runner that executes the current automated test suite.

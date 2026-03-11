@@ -1,0 +1,8 @@
+title: Docker Integration Sample
+github: paulojeronimo/bash-tape
+title-preset: future-metal
+---
+steps: 1
+title: Integration Test Flow
+intro: |
+  This tape exists only to validate Docker-driven integration behavior.

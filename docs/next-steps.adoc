@@ -1,0 +1,73 @@
+= Next Steps
+
+== Introduce a Session Model
+
+One of the next architectural improvements for Bash Tape is a first-class
+session model.
+Today, a tape run is mostly understood as "play a given `steps.N.sh`".
+The next stage is to treat a tape as a resumable session that can span
+multiple `steps.N.sh` files in sequence.
+
+The current direction being considered is:
+
+* `play` should no longer require the user to pass a step number in normal
+  usage.
+  Instead, the player should discover the last `steps.N.sh` that finished
+  successfully and resume from the next logical point.
+* If playback stopped in the middle of a `steps.N.sh`, that step should not be
+  considered completed.
+  A later `play` should return to that same `steps.N.sh`.
+* Resuming an incomplete `steps.N.sh` should trigger an automatic rewind before
+  replaying it, so the step is restarted from a clean state rather than from a
+  partially modified environment.
+* When the player reaches the end of a `steps.N.sh`, it should allow either:
+  ** `stop`, preserving the session for later continuation
+  ** continue into the next `steps.N.sh` automatically or through an explicit
+     confirmation
+* If the current file is already the last `steps.N.sh` in the tape, the player
+  should make that clear and report that there are no additional steps to play.
+
+This means a future session-aware tape run will need to distinguish at least
+these conditions:
+
+* no session started yet
+* session in progress
+* current `steps.N.sh` completed successfully
+* current `steps.N.sh` interrupted before completion
+* session stopped between completed step files
+* session fully ejected
+
+That model will likely build on top of the existing JSONL event log already
+stored under `.bash-tape/`, but it will require stronger semantics around what
+"completed successfully" means for a step file and when a rewind becomes
+mandatory.
+
+The main open design questions are:
+
+* whether moving from one `steps.N.sh` to the next should happen immediately or
+  only after explicit user confirmation
+* how the player should represent "stopped between files" versus "stopped in
+  the middle of a file"
+* how much of the recovery logic should be inferred from the event log versus
+  materialized into a separate session state file
+
+This is intentionally documented here before implementation so that tape
+authors understand the direction of the session model and the constraints that
+future step design may need to respect.
+
+== Remove the `.sh` Suffix from Docker Wrappers
+
+Another planned usability improvement is to remove the `.sh` suffix from
+`docker/run.sh` and `docker/build.sh`.
+The goal is to make those wrappers easier to type, easier to remember, and
+closer to the syntax of the standard `docker` command itself.
+
+That change would likely produce wrapper commands such as:
+
+* `./docker/run play <steps-dir> [N]`
+* `./docker/run rewind <steps-dir> [N]`
+* `./docker/build [--all] [<steps-dir>]`
+
+If this change is implemented, the whole documentation set must be updated so
+that examples, diagrams, tests, and private notes all reflect the new command
+names consistently.

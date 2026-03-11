@@ -1,0 +1,24 @@
+= What This Project Does
+
+* Runs steps defined in `project/steps.N.sh` files.
+* Shows each step title centered and numbered.
+* Prints each command before execution.
+* Supports heredoc commands inside step files.
+* Uses interactive navigation (`Enter`, `b`, `q`) between rendered slides.
+* Shows a final centered `Done!` summary with total executed steps.
+
+== Tape Deck Analogy
+
+Bash Tape models a shell tutorial as if it were a tape deck:
+
+* `play`: start the tape
+* `pause`: wait on each slide for the next action
+* `back`: move to the previous rendered slide
+* `forward`: move to the next slide
+* `rewind`: undo a given `steps.N.sh` through its matching `steps.N.rewind.sh`
+* `stop`: leave playback without ejecting the tape
+* `eject`: finalize the tape and run `steps.end.sh`, if present
+
+This distinction matters when a tape changes local state.
+Stopping preserves the current environment so the tape can be resumed later.
+Ejecting is the explicit cleanup action.

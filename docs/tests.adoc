@@ -1,0 +1,66 @@
+= Tests
+
+Run the automated test suite with:
+
+[,bash]
+----
+tests/run.sh
+----
+
+At the moment, the suite contains an integration test for the Docker wrapper.
+It validates the end-to-end flow of:
+
+* building a tape image through `./docker/build.sh --all <steps-dir>`
+* running `./docker/run.sh play.sh <steps-dir>`
+* recording tape events in the JSONL log
+* preserving a tape-specific state directory under `.bash-tape/`
+
+The suite also includes a configuration-level test for the Dev Container and
+Docker wrapper files.
+It verifies that the repository keeps the expected Dev Container settings and
+the expected `docker/` script layout.
+
+The current integration fixture lives under `tests/fixtures/docker-sample`.
+
+== Manual Checks
+
+If you want to inspect the tape events manually while using the Docker wrapper,
+you can point execution to a temporary working directory and then inspect the
+generated JSONL log.
+
+Example:
+
+[,bash]
+----
+tmp_dir="$(mktemp -d)"
+BASH_TAPE_RUN_WORKDIR="$tmp_dir" ./docker/run.sh play.sh samples/fibonacci
+----
+
+After the tape starts or finishes, inspect the generated files:
+
+[,bash]
+----
+find "$tmp_dir/.bash-tape" -maxdepth 2 -type f | sort
+----
+
+Then open the JSONL event log:
+
+[,bash]
+----
+batcat "$tmp_dir/.bash-tape/"*.jsonl
+----
+
+You should see events such as:
+
+* `play_started`
+* `step_executed`
+* `back`
+* `forward`
+* `stopped`
+* `eject_requested`
+* `ejected`
+* `rewind_started`
+* `rewound`
+
+This is the simplest manual way to confirm what the player and wrapper recorded
+for a tape run.

@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+folder "Tape Source" {
+  [steps.N.sh]
+  [steps.yaml]
+  [steps.begin.sh]
+  [steps.end.sh]
+}
+
+folder "Working Directory" {
+  folder ".bash-tape" {
+    [<tape-id>.jsonl]
+    folder "<tape-id>/" {
+      [hook state files]
+    }
+  }
+  [artifacts created by tape]
+}
+
+[steps.N.sh] --> [artifacts created by tape] : write project files
+[steps.begin.sh] --> [hook state files] : persist setup state
+[steps.end.sh] --> [hook state files] : restore and clean
+[steps.N.sh] --> [<tape-id>.jsonl] : events via player
+@enduml

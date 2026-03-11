@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+package "Bash Tape Engine" {
+  [play.sh]
+  [rewind.sh]
+  [functions.sh]
+  [docker/build.sh + docker/run.sh]
+  [docker/bin/bash-tape]
+}
+
+package "Tape Directory" {
+  [steps.N.sh]
+  [steps.N.rewind.sh]
+  [steps.yaml]
+  [steps.begin.sh]
+  [steps.end.sh]
+  [docker.extend.sh]
+  [docker.commands.sh]
+}
+
+[play.sh] --> [steps.N.sh] : parse and execute
+[play.sh] --> [steps.yaml] : read metadata
+[play.sh] --> [steps.begin.sh] : optional startup hook
+[play.sh] --> [steps.end.sh] : optional eject hook
+[rewind.sh] --> [steps.N.rewind.sh] : execute rewind
+[docker/build.sh + docker/run.sh] --> [docker.extend.sh] : optional image extension
+[docker/build.sh + docker/run.sh] --> [docker.commands.sh] : optional sample commands
+[docker/bin/bash-tape] --> [play.sh]
+[docker/bin/bash-tape] --> [rewind.sh]
+[functions.sh] ..> [play.sh]
+[functions.sh] ..> [rewind.sh]
+@enduml

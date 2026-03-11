@@ -1,0 +1,48 @@
+= Current Capabilities
+
+. Interactive playback
+* Bash Tape plays shell tutorials from `steps.N.sh` files.
+* Each slide can show a title, explanatory metadata, commands, and command
+  output.
+* Commands are executed for real while being presented.
+
+. Tape-style navigation
+* You can move forward and back through rendered slides.
+* Previously visited slides are shown from cache and are not re-executed.
+* The player supports `stop` and `eject` as distinct operations.
+
+. Script-friendly authoring
+* The engine understands common tutorial patterns such as heredoc-based file
+  creation.
+* This makes it practical to present scripts that generate other scripts or
+  configuration files.
+
+. Lifecycle hooks
+* A tape can define `steps.begin.sh` for setup.
+* A tape can define `steps.end.sh` for explicit cleanup.
+* This is useful when a tutorial temporarily changes local state such as Git
+  configuration.
+
+. Event logging and state tracking
+* The runtime records tape events in a JSONL log under `.bash-tape/`.
+* This makes playback, rewind, stop, and eject actions inspectable after the
+  run.
+
+. Explicit rewind support
+* Each `steps.N.sh` can have a matching `steps.N.rewind.sh`.
+* That allows each part of a tape to define its own reset strategy.
+
+. Local and container execution
+* Bash Tape runs directly on the host.
+* It also runs inside Docker.
+* Its container model is modular, so each tape image can add only the tools it
+  needs.
+
+. Automated regression coverage
+* The project already includes integration testing for the Docker wrapper and
+  tape logging behavior.
+* This provides a baseline against regressions in core user-facing workflows.
+
+. Planned evolution
+* The current roadmap for session-aware playback is documented in
+  <<next-steps,Next Steps>>.

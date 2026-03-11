@@ -1,0 +1,72 @@
+= Architecture
+:basedir: ..
+
+Bash Tape is split into a small execution engine and tape-specific content.
+This separation is what makes the project modular both on the host and inside Docker images.
+
+== Component Model
+
+At the highest level, the engine is responsible for parsing steps, rendering slides, handling navigation, and exposing a stable execution environment.
+Each tape provides only its own content and optional extension points.
+
+[plantuml,architecture-components]
+----
+include::{basedir}/diagrams/architecture-components.puml[]
+----
+
+== Playback Architecture
+
+The `play.sh` flow has two independent responsibilities:
+
+* render and navigate slides without re-executing cached steps
+* execute tape lifecycle hooks and keep an event log for the tape state
+
+[plantuml,architecture-playback-flow]
+----
+include::{basedir}/diagrams/architecture-playback-flow.puml[]
+----
+
+== Execution Context
+
+Every tape runs against a working directory that is intentionally separate from the tape source directory.
+That is what lets a single tape be replayed in a clean workspace, in `build/`, or in a Docker-mounted directory.
+
+[plantuml,architecture-workdir]
+----
+include::{basedir}/diagrams/architecture-workdir.puml[]
+----
+
+The engine exports a standard contract to tape scripts:
+
+* `BASH_TAPE_ID`
+* `BASH_TAPE_DIR`
+* `BASH_TAPE_STATE_DIR`
+* `BASH_TAPE_LOG_FILE`
+* `BASH_TAPE_STEPS_DIR`
+* `BASH_TAPE_STEPS_NUMBER`
+* `BASH_TAPE_RUN_WORKDIR`
+
+This avoids hardcoded paths in hooks such as `steps.begin.sh` and `steps.end.sh`.
+
+== Modular Container Architecture
+
+The Docker model is intentionally layered:
+
+* the engine image contains only the generic Bash Tape runtime
+* each tape image copies its own steps and can add only the packages it needs
+* optional runtime commands live with the tape, not in the engine
+
+[plantuml,architecture-docker]
+----
+include::{basedir}/diagrams/architecture-docker.puml[]
+----
+
+The Docker scripts build this structure in two phases:
+
+. build `bash-tape:engine`
+. build `bash-tape:<sample>` from the engine
+. apply `docker.extend.sh` from the tape, if present
+. copy the tape steps into the sample image
+. execute `play.sh`, `rewind.sh`, or tape-specific commands inside the resulting container
+
+This keeps the engine small while still allowing a tape such as a private tutorial to install extra tools like Git, Node.js, or Codex without forcing those dependencies onto unrelated tapes.

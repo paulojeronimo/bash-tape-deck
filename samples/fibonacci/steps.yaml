@@ -1,0 +1,216 @@
+---
+title: Fibonacci in Bash
+github: github.com/paulojeronimo/bash-tape/tree/main/samples/fibonacci
+title-preset: future-metal
+---
+steps: 1
+intro: |
+  Steps 1 introduces Fibonacci in Bash from the ground up.
+
+  Learning goals:
+  - Build an iterative Fibonacci generator.
+  - Run and validate outputs with a smoke test.
+  - Organize source, docs, tests, and artifacts.
+blocks:
+  step1-prepare-workspace:
+    position: before
+    content: |
+      This slide creates a clean tutorial workspace:
+      - `src/` for scripts
+      - `tests/` for checks
+      - `docs/` for explanations
+      - `artifacts/` for captured outputs
+  step1-create-iterative-script-header:
+    position: before
+    content: |
+      We start the first Fibonacci version with:
+      - the script header
+      - default argument handling
+      - numeric input validation
+      - the `n=0` fast path
+
+      This chunk keeps the first slide focused on safe script entry behavior.
+
+  step1-create-iterative-script-body:
+    position: before
+    content: |
+      We append the iterative loop and final output logic.
+
+      Concepts shown:
+      - state transitions with `a` and `b`
+      - loop-based sequence generation
+      - final sequence printing
+  step1-run-iterative-script:
+    position: before
+    content: |
+      Executes the iterative script with `12` terms and stores output in
+      `artifacts/step1-seq.txt`.
+
+      This gives a reproducible baseline for later comparisons.
+  step1-write-notes:
+    position: before
+    content: |
+      Adds a concise technical note in Markdown to explain the iterative logic
+      and why it is a safe initial implementation for Bash.
+  step1-create-test:
+    position: before
+    content: |
+      Creates a smoke test that compares the generated sequence with known
+      expected values for the first 10 terms.
+  step1-run-test-and-tree:
+    position: before
+    content: |
+      Runs the test and prints the project layout.
+
+      End-of-step objective:
+      a minimal but structured Fibonacci tutorial project.
+---
+steps: 2
+intro: |
+  Steps 2 evolves the implementation from basic to intermediate.
+
+  Learning goals:
+  - Introduce recursion and understand its cost.
+  - Add memoization to reduce repeated work.
+  - Compare implementations with a simple benchmark.
+blocks:
+  step2-validate-state:
+    position: before
+    content: |
+      Verifies that step 1 completed successfully.
+
+      If required scripts are missing, execution stops with
+      `Inconsistent state`.
+  step2-create-recursive-script-function:
+    position: before
+    content: |
+      Adds the core recursive Fibonacci function.
+
+      This version is compact and educational, but can become slow for
+      larger inputs due to repeated calculations.
+  step2-create-recursive-script-entrypoint:
+    position: before
+    content: |
+      Appends input parsing and the recursive entry point used by the script.
+  step2-run-recursive-examples:
+    position: before
+    content: |
+      Runs small recursion examples (`n=0,1,5,10`) and saves results in
+      `artifacts/step2-recursive.txt`.
+  step2-create-memoized-script-function:
+    position: before
+    content: |
+      Introduces the memoization cache and the recursive memoized function.
+
+      Cached results avoid recomputation and improve runtime significantly.
+  step2-create-memoized-script-entrypoint:
+    position: before
+    content: |
+      Appends memoized result handling and the command entry point.
+  step2-run-benchmark:
+    position: before
+    content: |
+      Builds a benchmark script using nanosecond timestamps and compares
+      recursive vs memoized for `n=15`.
+
+      Output is stored in `artifacts/step2-benchmark.txt`.
+  step2-write-notes:
+    position: before
+    content: |
+      Documents complexity trade-offs and expected behavior from the
+      benchmark results.
+  step2-show-layout:
+    position: before
+    content: |
+      Lists source and artifact files created in step 2 to show project growth.
+---
+steps: 3
+title: Advanced CLI and Test Architecture
+intro: |
+  Steps 3 provides an advanced and reusable tutorial architecture.
+
+  Learning goals:
+  - Consolidate logic into a shared library.
+  - Build a CLI with multiple modes and implementations.
+  - Add cross-implementation tests and comparison tables.
+blocks:
+  step3-validate-state:
+    position: before
+    content: |
+      Confirms that step 2 artifacts exist before advanced evolution starts.
+
+      If prerequisites are missing, execution stops with
+      `Inconsistent state`.
+  step3-create-library-foundation:
+    position: before
+    content: |
+      Creates the shared library foundation with:
+      - shell setup
+      - memo cache initialization
+      - input validation
+
+      This is the reusable base layer.
+  step3-create-library-iterative:
+    position: before
+    content: |
+      Appends the iterative implementation to `fibonacci.lib.sh`.
+  step3-create-library-recursive:
+    position: before
+    content: |
+      Appends the recursive implementation to `fibonacci.lib.sh`.
+  step3-create-library-memoized:
+    position: before
+    content: |
+      Appends the memoized implementation to `fibonacci.lib.sh`, completing
+      the reusable core with:
+      - input validation
+      - iterative implementation
+      - recursive implementation
+      - memoized implementation
+  step3-create-cli-header:
+    position: before
+    content: |
+      Creates the CLI header and usage output for `fibonacci-cli.sh`.
+  step3-create-cli-dispatch:
+    position: before
+    content: |
+      Adds argument parsing and implementation dispatch for:
+      - `nth <n> [impl]`
+      - `sequence <n> [impl]`
+  step3-create-cli-modes:
+    position: before
+    content: |
+      Adds the CLI execution modes and completes support for:
+      - iterative
+      - recursive
+      - memoized
+  step3-run-cli-examples:
+    position: before
+    content: |
+      Executes practical CLI examples and stores output in
+      `artifacts/step3-cli.txt`.
+
+      This demonstrates behavior from a user perspective.
+  step3-create-comparison-table:
+    position: before
+    content: |
+      Builds a formatted comparison table across implementations for selected
+      values and saves it to `artifacts/step3-table.txt`.
+  step3-create-tests-helper:
+    position: before
+    content: |
+      Adds the shared assertion helper used by the step 3 test suite.
+  step3-create-tests-assertions:
+    position: before
+    content: |
+      Adds cross-implementation assertions across all implementations.
+      Objective:
+      verify that every implementation returns consistent results.
+  step3-run-tests-and-notes:
+    position: before
+    content: |
+      Runs the test suite, writes advanced notes, and prints the final
+      project tree.
+
+      End-of-step objective:
+      a robust Bash tutorial structure ready for reuse.

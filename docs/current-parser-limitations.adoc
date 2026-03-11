@@ -1,0 +1,30 @@
+= Current Parser Limitations
+
+The current `play.sh` parser is intentionally pragmatic, but it is not a full
+shell parser.
+It works well for the Bash Tape authoring style used by this project, yet it
+still has important limitations that tape authors should understand.
+
+Known limitations include:
+
+* Slide separation is structural, not semantic.
+  A new slide is created only when a titled step block ends with a blank line.
+* Splitting a logical operation across multiple shell commands does not create
+  multiple slides unless each block has its own title and blank-line separator.
+* Some shell constructs are more fragile than plain sequential commands.
+  In particular, grouped redirections such as `{ ... } > file` are currently
+  more error-prone for the parser than plain `cat > ...` and `cat >> ...`
+  heredoc commands.
+* The parser is designed for readable tutorial scripts, not for arbitrary Bash.
+  Very dense command compositions, unusual multiline constructs, and highly
+  nested shell syntax may still produce poor presentation results even when the
+  shell syntax itself is valid.
+
+In practice, the safest authoring style today is:
+
+* one titled step block per slide
+* plain sequential commands
+* heredoc-based file generation with moderate block size
+* explicit blank lines between slides
+
+This is an area intentionally left open for future improvement.

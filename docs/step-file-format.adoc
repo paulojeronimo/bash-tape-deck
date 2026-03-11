@@ -1,0 +1,36 @@
+ifdef::env-github[]
+include::_/attributes.adoc[]
+= Step File Format
+endif::[]
+ifndef::env-github[]
+== Step File Format
+endif::[]
+
+
+File: `samples/fibonacci/steps.N.sh`
+
+* Shebang is allowed and ignored by `play.sh`.
+* A step title is a comment line: `# Step title...`
+* One or more commands follow the comment.
+* A new slide is created only when a step block is terminated by a blank line.
+* If multiple commands appear without a blank line between step blocks, they remain in the same slide even when they are visually short.
+* Heredoc commands are supported.
+
+To split a large file construction across multiple slides, you must create
+multiple titled step blocks separated by blank lines.
+
+Example:
+
+[,bash]
+----
+#!/usr/bin/env bash
+
+# Create folder
+mkdir -p demo
+
+# Write file with heredoc
+cat > demo/file.txt <<'EOF'
+hello
+EOF
+----
+

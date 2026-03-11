@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+
+start
+:Resolve steps dir and workdir;
+:Export Bash Tape environment variables;
+:Load steps.yaml metadata;
+if (steps.begin.sh exists?) then (yes)
+  :Run steps.begin.sh;
+endif
+:Parse steps.N.sh into step blocks;
+if (intro metadata exists?) then (yes)
+  :Render intro slide;
+endif
+
+repeat
+  :Render cached slide or execute step;
+  :Append JSONL event log entries;
+  :Wait for navigation input;
+  if (next?) then (yes)
+    :Move forward;
+  elseif (back?) then (yes)
+    :Move backward;
+  elseif (stop?) then (yes)
+    :Exit without teardown;
+    stop
+  elseif (eject?) then (yes)
+    if (steps.end.sh exists?) then (yes)
+      :Run steps.end.sh;
+    endif
+    :Append ejected event;
+    stop
+  endif
+repeat while (more navigation)
+
+stop
+@enduml

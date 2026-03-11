@@ -1,0 +1,10 @@
+= Navigation
+
+During playback:
+
+* `Enter`: next step
+* `b`: go back to previous step
+* `e`: eject the tape and run `steps.end.sh`, if present
+* `s`: stop playback without ejecting the tape
+
+When navigating back/forward, previously visited steps are rendered from cache and are not re-executed.

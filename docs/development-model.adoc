@@ -1,0 +1,12 @@
+= Development model
+
+This project is developed using a <<ref-cathedral-bazaar,Cathedral>> of open source development.
+
+In practice, this means I maintain two Git repositories:
+
+* [[private-repo]] a private repository, where development happens with granular commits, experiments, and auxiliary scripts used for development workflows (for example, sync scripts)
+* a public repository (the one users normally see on GitHub), used mostly to publish releases
+
+This project is developed by only me (<<author,{author}>>) and my AI agents.
+
+Even though the development is led by a single person, contributions are welcome through GitHub pull requests.

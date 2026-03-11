@@ -1,0 +1,126 @@
+= Bash Tape
+Paulo Jerônimo <paulojeronimo@gmail.com>
+:icons: font
+:imagesdir: images
+:idprefix:
+:idseparator: -
+:toc:
+:toclevels: 5
+ifdef::backend-html5[]
+:nofooter:
+endif::[]
+:numbered:
+:sectanchors:
+ifdef::backend-pdf[]
+:source-highlighter: rouge
+:plantuml-format: png
+:toc: macro
+:toc-title!:
+endif::[]
+ifndef::env-github[]
+// Anchors
+:_author: <<author,{author}>>
+:_open-source: <<license,Open Source>> 
+include::docs/_/attributes.adoc[]
+endif::[]
+ifdef::env-github[]
+:uri-bash-tape-pdf: https://github.com/paulojeronimo/bash-tape/blob/pdf/README.pdf
+// Anchors
+:_author: Paulo Jerônimo
+:_open-source: Open Source
+// Attribute ovewrites
+:AgentSkills: Agent Skills
+:Docker: Docker
+:LXD: LXD
+:Katacoda: Katacoda
+:BashTape: Bash Tape
+:DevelopementContainers: Development Containers
+:GitHubCodespaces: GitHub Codespaces
+endif::[]
+
+[.lead.text-center]
+*Shell tutorials for people who hate slide decks*
+
+ifdef::env-github[]
+[text-center]
+{uri-bash-tape-pdf}[Read the complete document in PDF format]
+
+endif::[]
+[align=center]
+image::art.png[pdfwidth=80%,align=center]
+
+****
+[.lead.text-center]
+Why I (*{_author}*) Built This {_open-source} Project
+
+*I wanted a way to demonstrate, step by step, the execution of a set of scripts I had written to explain the concept of {AgentSkills}*.
+Those scripts were already in good shape and did exactly what I wanted.
+The problem was presentation.
+
+Shell scripts are tedious to explain to an audience that does not know much Bash.
+I also did not want to use slides, and I definitely did not want to write yet another tutorial document like the many I had already produced before.
+
+What I wanted was something more elegant: an environment where I could put the scripts in motion, let the commands do real work, and still move backward during the presentation to show what had just happened.
+
+That led me to the idea of building an execution environment, using {Docker} or {LXD}, where I could replay the same scripted demonstration as many times as necessary and always return to a known state.
+
+I had already used similar ideas before, but in cloud-hosted environments.
+One example was {Katacoda}, which was later discontinued by O'Reilly.
+
+*{BashTape}* is the local, script-driven version of that idea.
+But it can also be executed easily in the cloud through {DevelopmentContainers}.
+That means you can run it on practically any cloud environment and, even more easily, on {GitHubCodespaces}.
+ifndef::env-github[]
+See <<ref-devcontainers-video,the video reference>> for that setup.
+endif::[]
+****
+
+ifndef::env-github[]
+:leveloffset: +1
+
+<<<
+include::docs/what-this-project-does.adoc[]
+
+<<<
+include::docs/current-capabilities.adoc[]
+
+<<<
+include::docs/architecture.adoc[]
+
+<<<
+include::docs/files.adoc[]
+
+<<<
+include::docs/requirements.adoc[]
+
+<<<
+include::docs/usage.adoc[]
+
+<<<
+include::docs/navigation.adoc[]
+
+<<<
+include::docs/step-file-format.adoc[]
+
+<<<
+include::docs/current-parser-limitations.adoc[]
+
+<<<
+include::docs/tests.adoc[]
+
+<<<
+include::docs/next-steps.adoc[]
+
+<<<
+include::docs/author.adoc[]
+
+<<<
+include::docs/license.adoc[]
+
+include::docs/development-model.adoc[]
+
+<<<
+include::docs/references.adoc[]
+
+:leveloffset: -1
+endif::[]

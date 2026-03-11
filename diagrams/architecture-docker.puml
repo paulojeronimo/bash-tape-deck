@@ -1,0 +1,30 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+node "Engine Image\nbash-tape:engine" {
+  [play.sh]
+  [rewind.sh]
+  [functions.sh]
+  [docker/bin/bash-tape]
+}
+
+node "Tape Image\nbash-tape:<sample>" {
+  [copied steps/]
+  [sample packages]
+  [sample commands]
+}
+
+folder "Host Workspace" {
+  [build/ or custom workdir]
+}
+
+[play.sh] --> [copied steps/]
+[rewind.sh] --> [copied steps/]
+[sample commands] --> [build/ or custom workdir]
+[copied steps/] --> [build/ or custom workdir]
+[play.sh] --> [build/ or custom workdir]
+[rewind.sh] --> [build/ or custom workdir]
+[Engine Image\nbash-tape:engine] <|-- [Tape Image\nbash-tape:<sample>]
+@enduml
