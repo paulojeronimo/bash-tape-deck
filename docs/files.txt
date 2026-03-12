@@ -8,6 +8,7 @@ Tree                                 Description
 AGENTS.md                            Repository-specific agent rules for code generation, testing, and commits.
 LICENSE                              MIT license for the project.
 README.adoc                          Main project document assembled from the section files in docs/.
+cassette-art.sh                      Public cassette artwork wrapper around cassette_art_main.
 diagrams                             PlantUML source diagrams used by the documentation.
 +-- architecture-components.puml     PlantUML diagram describing the main Bash Tape components.
 +-- architecture-docker.puml         PlantUML diagram describing the Docker-oriented runtime flow.

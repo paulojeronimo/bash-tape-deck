@@ -50,7 +50,7 @@ assert_not_contains() {
 cd "$repo_root"
 
 TERM=xterm COLUMNS=80 LINES=24 CASSETTE_ANIMATION_DELAY=0 \
-  ./.private/cassette-art.sh --clear-screen --center --animate 2 --width 48 --label TEST >"$stdout_file" 2>"$stderr_file"
+  ./cassette-art.sh --clear-screen --center --animate 2 --width 48 --label TEST >"$stdout_file" 2>"$stderr_file"
 
 assert_contains "$stdout_file" $'\033[H\033[2J'
 assert_contains "$stdout_file" $'\033[?25l'
@@ -61,13 +61,13 @@ assert_contains "$stdout_file" '                /'
 assert_contains "$stdout_file" '( | )'
 assert_not_contains "$stderr_file" '# width='
 
-if ./.private/cassette-art.sh --animate 0 --width 48 --label TEST >"$invalid_stdout_file" 2>"$invalid_stderr_file"; then
+if ./cassette-art.sh --animate 0 --width 48 --label TEST >"$invalid_stdout_file" 2>"$invalid_stderr_file"; then
   fail "Expected --animate 0 to fail"
 fi
 assert_contains "$invalid_stderr_file" "--animate repetition count must be >= 1 or 'infinite'"
 
 TERM=xterm COLUMNS=80 LINES=24 \
-  ./.private/cassette-art.sh --clear-screen --center --width 88 --label TEST >"$static_stdout_file" 2>"$static_stderr_file"
+  ./cassette-art.sh --clear-screen --center --width 88 --label TEST >"$static_stdout_file" 2>"$static_stderr_file"
 
 assert_contains "$static_stdout_file" $'\033[H\033[2J'
 assert_contains "$static_stdout_file" "/______________________________________________________________________________________\\"
@@ -75,15 +75,15 @@ assert_contains "$static_stderr_file" '# width=88'
 assert_contains "$static_stdout_file" 'github.com/paulojeronimo/bash-tape-deck'
 
 TERM=xterm COLUMNS=80 LINES=24 \
-  ./.private/cassette-art.sh --center top --width 48 --label TEST >"$top_stdout_file" 2>"$top_stderr_file"
+  ./cassette-art.sh --center top --width 48 --label TEST >"$top_stdout_file" 2>"$top_stderr_file"
 TERM=xterm COLUMNS=80 LINES=24 \
-  ./.private/cassette-art.sh --center bottom --width 48 --label TEST >"$bottom_stdout_file" 2>"$bottom_stderr_file"
+  ./cassette-art.sh --center bottom --width 48 --label TEST >"$bottom_stdout_file" 2>"$bottom_stderr_file"
 TERM=xterm COLUMNS=80 LINES=24 CASSETTE_ANIMATION_DELAY=0 \
-  ./.private/cassette-art.sh --title-preset future-metal --animate 1 --width 48 --label TEST >"$metal_stdout_file" 2>"$metal_stderr_file"
+  ./cassette-art.sh --title-preset future-metal --animate 1 --width 48 --label TEST >"$metal_stdout_file" 2>"$metal_stderr_file"
 TERM=xterm COLUMNS=80 LINES=24 \
-  ./.private/cassette-art.sh --width 88 --project-title "My Tape" --project-url "example.com/my-tape" >"$project_stdout_file" 2>"$project_stderr_file"
+  ./cassette-art.sh --width 88 --project-title "My Tape" --project-url "example.com/my-tape" >"$project_stdout_file" 2>"$project_stderr_file"
 TERM=xterm COLUMNS=80 LINES=24 CASSETTE_ANIMATION_DELAY=0 \
-  ./.private/cassette-art.sh --animate 1 --width 48 --label TEST --subtitle SUB >"$subtitle_stdout_file" 2>"$subtitle_stderr_file"
+  ./cassette-art.sh --animate 1 --width 48 --label TEST --subtitle SUB >"$subtitle_stdout_file" 2>"$subtitle_stderr_file"
 
 first_top_line="$(grep -m1 '/' "$top_stdout_file")"
 first_bottom_line_number="$(grep -n -m1 '/' "$bottom_stdout_file" | cut -d: -f1)"
@@ -96,7 +96,7 @@ assert_not_contains "$metal_stderr_file" '# width='
 [ "$(grep -c 'SUB' "$subtitle_stdout_file")" -ge 1 ] || fail "Expected subtitle to be rendered"
 assert_not_contains "$subtitle_stderr_file" '# width='
 
-if ./.private/cassette-art.sh --center middle --width 48 --label TEST >"$invalid_center_stdout_file" 2>"$invalid_center_stderr_file"; then
+if ./cassette-art.sh --center middle --width 48 --label TEST >"$invalid_center_stdout_file" 2>"$invalid_center_stderr_file"; then
   fail "Expected invalid --center value to fail"
 fi
 assert_contains "$invalid_center_stderr_file" "--center must be one of: all, top, bottom"

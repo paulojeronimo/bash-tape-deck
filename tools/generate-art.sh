@@ -69,7 +69,7 @@ resolve_cassette_width() {
   while [ "$low" -le "$high" ]; do
     mid=$(((low + high) / 2))
     rendered_output="$(
-      ./.private/cassette-art.sh \
+      ./cassette-art.sh \
         --width "$mid" \
         --label "$label" \
         --subtitle "$subtitle" \
@@ -152,7 +152,7 @@ if [ -z "$cassette_width" ]; then
   cassette_width="$(resolve_cassette_width)"
 fi
 
-./.private/cassette-art.sh \
+./cassette-art.sh \
   --width "$cassette_width" \
   --label "$label" \
   --subtitle "$subtitle" \
@@ -168,7 +168,7 @@ asciinema \
   rec --overwrite -c \
   "stty rows $terminal_rows cols $original_cols && \
    CASSETTE_ANIMATION_DELAY=$animation_delay \
-   ./.private/cassette-art.sh \
+   ./cassette-art.sh \
     --width '$cassette_width' \
     --label '$label' \
     --subtitle '$subtitle' \
