@@ -63,6 +63,7 @@ docs/usage.adoc	Usage section of the README.
 docs/what-this-project-does.adoc	Project overview section of the README.
 functions.sh	Shared shell functions for playback, rendering, logging, and cassette art.
 images	Image assets referenced by the documentation.
+images/art.gif	Animated artwork displayed at the top of the GitHub README.
 images/art.png	Rendered artwork displayed at the top of the README.
 play.sh	Interactive tape player for local execution.
 rewind.sh	Tape rewind dispatcher for local execution.

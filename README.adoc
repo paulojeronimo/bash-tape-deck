@@ -46,8 +46,14 @@ ifdef::env-github[]
 {uri-bash-tape-pdf}[Read the complete document in PDF format]
 
 endif::[]
+ifdef::env-github[]
+[align=center]
+image::art.gif[align=center]
+endif::[]
+ifndef::env-github[]
 [align=center]
 image::art.png[pdfwidth=80%,align=center]
+endif::[]
 
 ****
 [.lead.text-center]
