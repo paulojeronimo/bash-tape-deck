@@ -2,7 +2,6 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG YQ_VERSION=v4.45.4
-ARG ASCIINEMA_GIT_REF=develop
 ARG AGG_GIT_REF=main
 
 ENV CARGO_HOME=/usr/local/cargo
@@ -10,6 +9,7 @@ ENV PATH=${CARGO_HOME}/bin:${PATH}
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
+    asciinema \
     bat \
     build-essential \
     ca-certificates \
@@ -38,8 +38,6 @@ RUN set -eux; \
     esac; \
     curl -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_${yq_arch}" -o /usr/local/bin/yq; \
     chmod +x /usr/local/bin/yq
-
-RUN cargo install --root /usr/local --locked --git https://github.com/asciinema/asciinema --branch "${ASCIINEMA_GIT_REF}" asciinema
 
 RUN cargo install --root /usr/local --git https://github.com/asciinema/agg --branch "${AGG_GIT_REF}" agg
 
