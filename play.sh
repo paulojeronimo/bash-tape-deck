@@ -355,8 +355,7 @@ in_intro="$has_intro"
 in_done=0
 while true; do
   if [ "$in_done" = "1" ]; then
-    show_done "$tutorial_steps_number" "$steps_executed" "$global_title" "$global_github" "$tutorial_title_preset"
-    prompt_done_navigation NAV_ACTION 1
+    show_done_screen NAV_ACTION 1 "$tutorial_steps_number" "$steps_executed" "$global_title" "$global_github" "$tutorial_title_preset"
     case "$NAV_ACTION" in
       eject)
         eject_tape_and_exit
@@ -375,48 +374,21 @@ while true; do
 
   if [ "$in_intro" = "1" ]; then
     intro_cache_file="${cache_tmp_dir}/intro.log"
-    if [ -f "$intro_cache_file" ]; then
+    if [ -f "$intro_cache_file" ] && [ -z "$global_title" ]; then
       clear
       cat "$intro_cache_file"
     else
-      {
-        clear
-        if [ -n "$global_title" ]; then
-          intro_width="$(terminal_cols)"
-          if [ "$intro_width" -lt 40 ]; then
-            intro_width=40
-          fi
-          if [ "$intro_width" -gt 120 ]; then
-            intro_width=120
-          fi
-          if [ -n "$global_github" ]; then
-            intro_banner="$(
-            cassette_art_main \
-              --width "$intro_width" \
-              --label "$global_title" \
-              --subtitle "$tutorial_subtitle" \
-              --title-preset "$tutorial_title_preset" \
-              --github "$global_github" 2>/dev/null
-            )"
-          else
-            intro_banner="$(
-            cassette_art_main \
-              --width "$intro_width" \
-              --label "$global_title" \
-              --subtitle "$tutorial_subtitle" \
-              --title-preset "$tutorial_title_preset" 2>/dev/null
-            )"
-          fi
-          print_block_centered_visible "$intro_banner" "$intro_width"
-        else
+      if [ -z "$global_title" ]; then
+        {
+          clear
           print_figlet_centered "Steps $tutorial_steps_number"
-        fi
-        echo
-        render_metadata "$steps_intro"
-      } > >(tee "$intro_cache_file")
+          echo
+          render_metadata "$steps_intro"
+        } > >(tee "$intro_cache_file")
+      fi
     fi
 
-    prompt_intro_navigation NAV_ACTION 1
+    show_intro_screen NAV_ACTION 1 "$tutorial_steps_number" "$global_title" "$tutorial_subtitle" "$tutorial_title_preset" "$global_github" "$steps_intro"
     case "$NAV_ACTION" in
       eject)
         eject_tape_and_exit

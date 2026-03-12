@@ -7,6 +7,9 @@ passed=0
 failed=0
 
 tests=(
+  "$script_dir/integration/test-cassette-art-animate.sh"
+  "$script_dir/integration/test-play-screen-animation.sh"
+  "$script_dir/integration/test-public-commit-helpers.sh"
   "$script_dir/integration/test-devcontainer-config.sh"
   "$script_dir/integration/test-docker-wrapper.sh"
 )
