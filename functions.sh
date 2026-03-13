@@ -40,7 +40,7 @@ bash_tape_log_file() {
   local steps_dir="$1"
   local run_workdir="$2"
 
-  printf '%s/.bash-tape/%s.jsonl' \
+  printf '%s/.bash-tape-deck/%s.jsonl' \
     "$run_workdir" "$(bash_tape_id "$steps_dir")"
 }
 
@@ -48,7 +48,7 @@ bash_tape_state_dir() {
   local steps_dir="$1"
   local run_workdir="$2"
 
-  printf '%s/.bash-tape/%s' \
+  printf '%s/.bash-tape-deck/%s' \
     "$run_workdir" "$(bash_tape_id "$steps_dir")"
 }
 
@@ -491,7 +491,7 @@ show_done_screen() {
   local steps_number="${3:-1}"
   local steps_executed="${4:-0}"
   local global_title="${5:-Bash Tape}"
-  local global_github="${6:-paulojeronimo/bash-tape}"
+  local global_github="${6:-paulojeronimo/bash-tape-deck}"
   local title_preset="${7:-future-metal}"
   local prompt
   local done_text
@@ -882,7 +882,7 @@ cassette_art_main() {
   cassette_usage() {
     cat <<'EOF'
 Usage:
-  cassette-art.sh [options]
+  tools/cassette-art.sh [options]
 
 Options:
   --label <text>              Top label text.

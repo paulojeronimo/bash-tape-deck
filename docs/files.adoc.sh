@@ -29,16 +29,16 @@ done <<'MAP'
 AGENTS.md	Repository-specific agent rules for code generation, testing, and commits.
 LICENSE	MIT license for the project.
 README.adoc	Main project document assembled from the section files in docs/.
-cassette-art.sh	Public cassette artwork wrapper around cassette_art_main.
+tools/cassette-art.sh	Public cassette artwork wrapper around cassette_art_main.
 diagrams	PlantUML source diagrams used by the documentation.
-diagrams/architecture-components.puml	PlantUML diagram describing the main Bash Tape components.
+diagrams/architecture-components.puml	PlantUML diagram describing the main Bash Tape Deck components.
 diagrams/architecture-docker.puml	PlantUML diagram describing the Docker-oriented runtime flow.
 diagrams/architecture-playback-flow.puml	PlantUML diagram describing playback behavior and navigation.
 diagrams/architecture-workdir.puml	PlantUML diagram describing workspace and state directories.
 docker	Docker runtime assets and wrapper scripts.
-docker/Dockerfile	Runtime Docker image definition used by the Bash Tape engine.
+docker/Dockerfile	Runtime Docker image definition used by the Bash Tape Deck engine.
 docker/bin	Container entrypoint helpers.
-docker/bin/bash-tape	Container entrypoint that dispatches to play and rewind.
+docker/bin/bash-tape-deck	Container entrypoint that dispatches to play and rewind.
 docker/build.sh	Wrapper that builds the engine image and sample-specific images.
 docker/common.sh	Shared functions and defaults used by the Docker wrapper scripts.
 docker/run.sh	Wrapper that runs tapes and sample-specific container commands.

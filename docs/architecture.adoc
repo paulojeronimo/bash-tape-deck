@@ -1,7 +1,7 @@
 = Architecture
 :basedir: ..
 
-Bash Tape is split into a small execution engine and tape-specific content.
+{BashTapeDeck} is split into a small execution engine and tape-specific content.
 This separation is what makes the project modular both on the host and inside Docker images.
 
 == Component Model
@@ -52,7 +52,7 @@ This avoids hardcoded paths in hooks such as `steps.begin.sh` and `steps.end.sh`
 
 The Docker model is intentionally layered:
 
-* the engine image contains only the generic Bash Tape runtime
+* the engine image contains only the generic {BashTapeDeck} runtime
 * each tape image copies its own steps and can add only the packages it needs
 * optional runtime commands live with the tape, not in the engine
 
@@ -63,8 +63,8 @@ include::{basedir}/diagrams/architecture-docker.puml[]
 
 The Docker scripts build this structure in two phases:
 
-. build `bash-tape:engine`
-. build `bash-tape:<sample>` from the engine
+. build `bash-tape-deck:engine`
+. build `bash-tape-deck:<sample>` from the engine
 . apply `docker.extend.sh` from the tape, if present
 . copy the tape steps into the sample image
 . execute `play.sh`, `rewind.sh`, or tape-specific commands inside the resulting container

@@ -1,7 +1,7 @@
 = Current Capabilities
 
 . Interactive playback
-* Bash Tape plays shell tutorials from `steps.N.sh` files.
+* {BashTapeDeck} plays shell tutorials from `steps.N.sh` files.
 * Each slide can show a title, explanatory metadata, commands, and command
   output.
 * Commands are executed for real while being presented.
@@ -24,7 +24,7 @@
   configuration.
 
 . Event logging and state tracking
-* The runtime records tape events in a JSONL log under `.bash-tape/`.
+* The runtime records tape events in a JSONL log under `.bash-tape-deck/`.
 * This makes playback, rewind, stop, and eject actions inspectable after the
   run.
 
@@ -33,7 +33,7 @@
 * That allows each part of a tape to define its own reset strategy.
 
 . Local and container execution
-* Bash Tape runs directly on the host.
+* {BashTapeDeck} runs directly on the host.
 * It also runs inside Docker.
 * Its container model is modular, so each tape image can add only the tools it
   needs.

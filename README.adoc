@@ -1,4 +1,5 @@
-= Bash Tape
+:BashTapeDeck: Bash Tape Deck
+= {BashTapeDeck}
 Paulo Jerônimo <paulojeronimo@gmail.com>
 :icons: font
 :imagesdir: images
@@ -24,7 +25,7 @@ ifndef::env-github[]
 include::docs/_/attributes.adoc[]
 endif::[]
 ifdef::env-github[]
-:uri-bash-tape-pdf: https://github.com/paulojeronimo/bash-tape/blob/pdf/README.pdf
+:uri-bash-tape-pdf: https://github.com/paulojeronimo/bash-tape-deck/blob/pdf/README.pdf
 // Anchors
 :_author: Paulo Jerônimo
 :_open-source: Open Source
@@ -33,7 +34,6 @@ ifdef::env-github[]
 :Docker: Docker
 :LXD: LXD
 :Katacoda: Katacoda
-:BashTape: Bash Tape
 :DevelopementContainers: Development Containers
 :GitHubCodespaces: GitHub Codespaces
 endif::[]
@@ -73,7 +73,7 @@ That led me to the idea of building an execution environment, using {Docker} or 
 I had already used similar ideas before, but in cloud-hosted environments.
 One example was {Katacoda}, which was later discontinued by O'Reilly.
 
-*{BashTape}* is the local, script-driven version of that idea.
+*{BashTapeDeck}* is the local, script-driven version of that idea.
 But it can also be executed easily in the cloud through {DevelopmentContainers}.
 That means you can run it on practically any cloud environment and, even more easily, on {GitHubCodespaces}.
 ifndef::env-github[]

@@ -33,7 +33,7 @@ These hooks run in the same working directory used by the tape itself. They are 
 The player also exports a small set of environment variables so tape scripts can discover their execution context without hardcoded paths:
 
 * `BASH_TAPE_ID`: stable tape identifier derived from the steps directory
-* `BASH_TAPE_DIR`: base directory for Bash Tape internal data in the current working directory
+* `BASH_TAPE_DIR`: base directory for {BashTapeDeck} internal data in the current working directory
 * `BASH_TAPE_STATE_DIR`: tape-specific directory for hook/script state files
 * `BASH_TAPE_LOG_FILE`: JSONL event log for the tape
 * `BASH_TAPE_STEPS_DIR`: absolute path to the tape directory
@@ -47,7 +47,7 @@ Lifecycle flow:
 * `steps.begin.sh` runs automatically when the tape starts.
 * `s` stops the player without running `steps.end.sh`.
 * `e` ejects the tape and runs `steps.end.sh`.
-* If `steps.end.sh` exists and you stop without ejecting, Bash Tape warns that cleanup was skipped and the environment may remain inconsistent.
+* If `steps.end.sh` exists and you stop without ejecting, {BashTapeDeck} warns that cleanup was skipped and the environment may remain inconsistent.
 
 By default, step commands run in `build/` at the project root.
 You can override this by setting `BASH_TAPE_RUN_WORKDIR`:
@@ -120,7 +120,7 @@ Rebuild the engine first, then build the tape image:
 The `--all` option is only meaningful when a tape directory is provided.
 It forces a rebuild of the engine image before building the tape image.
 
-This creates `bash-tape:fibonacci` with:
+This creates `bash-tape-deck:fibonacci` with:
 
 * engine scripts (`play`, `rewind`, helpers)
 * steps from `samples/fibonacci`
@@ -130,10 +130,10 @@ Run the modular image directly:
 
 [,bash]
 ----
-docker run --rm -it bash-tape:fibonacci play
-docker run --rm -it bash-tape:fibonacci play 2
-docker run --rm -it bash-tape:fibonacci rewind
-docker run --rm -it bash-tape:fibonacci rewind 2
+docker run --rm -it bash-tape-deck:fibonacci play
+docker run --rm -it bash-tape-deck:fibonacci play 2
+docker run --rm -it bash-tape-deck:fibonacci rewind
+docker run --rm -it bash-tape-deck:fibonacci rewind 2
 ----
 
 Without a bind mount, generated files are created under `/workspace` inside the container and are lost when the container exits.
@@ -144,7 +144,7 @@ To control where the working files are created on the host, mount a directory to
 [,bash]
 ----
 docker run --rm -it -u "$(id -u):$(id -g)" -v "$PWD:/workspace" \
-  bash-tape:fibonacci play
+  bash-tape-deck:fibonacci play
 ----
 
 In this example, files such as `fibonacci-lab` are created in the current host directory.
@@ -179,7 +179,7 @@ The repository includes a standard Dev Container definition based on an
 official Dev Containers base image plus the official Docker-in-Docker feature.
 Its purpose is operational, not architectural: it lets you use the existing
 project commands inside a Development Container or a GitHub Codespace without
-changing how Bash Tape works.
+changing how {BashTapeDeck} works.
 
 The configured environment keeps the current conventions:
 
@@ -232,5 +232,5 @@ In both cases, you should be able to use commands such as:
 ----
 
 The intent is that Development Containers and Codespaces change only the
-execution environment, not the Bash Tape command line or its workdir
+execution environment, not the {BashTapeDeck} command line or its workdir
 conventions.

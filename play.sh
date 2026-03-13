@@ -57,7 +57,7 @@ tape_state_dir="$(bash_tape_state_dir "$tape_identity_source" "$run_workdir")"
 tape_log_file="$(bash_tape_log_file "$tape_identity_source" "$run_workdir")"
 mkdir -p "$tape_state_dir"
 export BASH_TAPE_ID="$tape_id"
-export BASH_TAPE_DIR="$run_workdir/.bash-tape"
+export BASH_TAPE_DIR="$run_workdir/.bash-tape-deck"
 export BASH_TAPE_STATE_DIR="$tape_state_dir"
 export BASH_TAPE_LOG_FILE="$tape_log_file"
 export BASH_TAPE_STEPS_DIR="$steps_dir"
@@ -154,8 +154,8 @@ steps_executed=0
 steps_begin_ran=0
 steps_end_ran=0
 has_end_hook=0
-parse_tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/bash-tape-parse.XXXXXX")"
-cache_tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/bash-tape-cache.XXXXXX")"
+parse_tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/bash-tape-deck-parse.XXXXXX")"
+cache_tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/bash-tape-deck-cache.XXXXXX")"
 
 run_optional_steps_script() {
   local script_path="$1"

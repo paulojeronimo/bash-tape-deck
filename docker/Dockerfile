@@ -28,19 +28,19 @@ RUN set -eux; \
 
 RUN useradd -m -s /bin/bash app
 
-WORKDIR /opt/bash-tape
-COPY play.sh rewind.sh functions.sh /opt/bash-tape/
-COPY docker/bin/bash-tape /usr/local/bin/bash-tape
+WORKDIR /opt/bash-tape-deck
+COPY play.sh rewind.sh functions.sh /opt/bash-tape-deck/
+COPY docker/bin/bash-tape-deck /usr/local/bin/bash-tape-deck
 
-RUN chmod +x /usr/local/bin/bash-tape /opt/bash-tape/play.sh /opt/bash-tape/rewind.sh && \
-    chown -R app:app /opt/bash-tape
+RUN chmod +x /usr/local/bin/bash-tape-deck /opt/bash-tape-deck/play.sh /opt/bash-tape-deck/rewind.sh && \
+    chown -R app:app /opt/bash-tape-deck
 
 USER app
 WORKDIR /workspace
 
-ENV PATH="/opt/bash-tape:${PATH}"
-ENV BASH_TAPE_ENGINE_DIR="/opt/bash-tape"
+ENV PATH="/opt/bash-tape-deck:${PATH}"
+ENV BASH_TAPE_ENGINE_DIR="/opt/bash-tape-deck"
 ENV BASH_TAPE_IN_DOCKER="1"
 ENV HOME="/home/app"
 
-ENTRYPOINT ["bash-tape"]
+ENTRYPOINT ["bash-tape-deck"]

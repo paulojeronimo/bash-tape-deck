@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-engine_dir="${BASH_TAPE_ENGINE_DIR:-/opt/bash-tape}"
+engine_dir="${BASH_TAPE_ENGINE_DIR:-/opt/bash-tape-deck}"
 
 usage() {
   cat <<'EOF'
 Usage:
-  bash-tape play [N]
-  bash-tape rewind [N]
-  bash-tape play <steps-dir> [N]
-  bash-tape rewind <steps-dir> [N]
-  bash-tape help
+  bash-tape-deck play [N]
+  bash-tape-deck rewind [N]
+  bash-tape-deck play <steps-dir> [N]
+  bash-tape-deck rewind <steps-dir> [N]
+  bash-tape-deck help
 
 Examples:
-  bash-tape play
-  bash-tape play 2
-  bash-tape rewind 2
-  bash-tape play samples/fibonacci
-  bash-tape play samples/fibonacci 2
-  bash-tape rewind samples/fibonacci 2
+  bash-tape-deck play
+  bash-tape-deck play 2
+  bash-tape-deck rewind 2
+  bash-tape-deck play samples/fibonacci
+  bash-tape-deck play samples/fibonacci 2
+  bash-tape-deck rewind samples/fibonacci 2
 EOF
 }
 
@@ -27,7 +27,7 @@ resolve_steps_args() {
 
   if [ -z "$default_steps_dir" ]; then
     echo "Missing steps directory and BASH_TAPE_DEFAULT_STEPS_DIR is not set." >&2
-    echo "Use: bash-tape play <steps-dir> [N]" >&2
+    echo "Use: bash-tape-deck play <steps-dir> [N]" >&2
     exit 1
   fi
 

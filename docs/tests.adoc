@@ -13,7 +13,7 @@ It validates the end-to-end flow of:
 * building a tape image through `./docker/build.sh --all <steps-dir>`
 * running `./docker/run.sh play.sh <steps-dir>`
 * recording tape events in the JSONL log
-* preserving a tape-specific state directory under `.bash-tape/`
+* preserving a tape-specific state directory under `.bash-tape-deck/`
 
 The suite also includes a configuration-level test for the Dev Container and
 Docker wrapper files.
@@ -40,14 +40,14 @@ After the tape starts or finishes, inspect the generated files:
 
 [,bash]
 ----
-find "$tmp_dir/.bash-tape" -maxdepth 2 -type f | sort
+find "$tmp_dir/.bash-tape-deck" -maxdepth 2 -type f | sort
 ----
 
 Then open the JSONL event log:
 
 [,bash]
 ----
-batcat "$tmp_dir/.bash-tape/"*.jsonl
+batcat "$tmp_dir/.bash-tape-deck/"*.jsonl
 ----
 
 You should see events such as:

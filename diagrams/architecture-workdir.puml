@@ -11,7 +11,7 @@ folder "Tape Source" {
 }
 
 folder "Working Directory" {
-  folder ".bash-tape" {
+  folder ".bash-tape-deck" {
     [<tape-id>.jsonl]
     folder "<tape-id>/" {
       [hook state files]

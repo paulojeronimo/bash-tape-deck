@@ -5,7 +5,7 @@
 :uri-github-codespaces: https://github.com/features/codespaces
 :uri-lxd: https://linuxcontainers.org/lxd/
 :uri-katacoda: https://www.katacoda.com/
-:uri-bash-tape: https://github.com/paulojeronimo/bash-tape
+:uri-bash-tape: https://github.com/paulojeronimo/bash-tape-deck
 // Attributes
 :Docker: {uri-docker}[Docker^]
 :DevelopmentContainers: {uri-development-containers}[Development Containers^]
@@ -13,4 +13,4 @@
 :LXD: {uri-lxd}[LXD^]
 :AgentSkills: {uri-agentskills}[Agent Skills^]
 :Katacoda: {uri-katacoda}[Katacoda^]
-:BashTape: {uri-bash-tape}[Bash Tape^]
+:BashTapeDeck: Bash Tape Deck

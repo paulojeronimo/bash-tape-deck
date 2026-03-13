@@ -11,7 +11,7 @@ source "$repo_root/functions.sh"
 
 label=${label:-'Your Bash Tape About XPTO'}
 subtitle=${subtitle:-'Steps 1/3'}
-github=${github:-'your-name/bash-tape-xpto'}
+github=${github:-'your-name/bash-tape-deck-xpto'}
 
 terminal_rows=${terminal_rows:-25}
 animation_delay=${animation_delay:-0.02}
@@ -69,7 +69,7 @@ resolve_cassette_width() {
   while [ "$low" -le "$high" ]; do
     mid=$(((low + high) / 2))
     rendered_output="$(
-      ./cassette-art.sh \
+      ./tools/cassette-art.sh \
         --width "$mid" \
         --label "$label" \
         --subtitle "$subtitle" \
@@ -152,7 +152,7 @@ if [ -z "$cassette_width" ]; then
   cassette_width="$(resolve_cassette_width)"
 fi
 
-./cassette-art.sh \
+./tools/cassette-art.sh \
   --width "$cassette_width" \
   --label "$label" \
   --subtitle "$subtitle" \
@@ -168,7 +168,7 @@ asciinema \
   rec --overwrite -c \
   "stty rows $terminal_rows cols $original_cols && \
    CASSETTE_ANIMATION_DELAY=$animation_delay \
-   ./cassette-art.sh \
+   ./tools/cassette-art.sh \
     --width '$cassette_width' \
     --label '$label' \
     --subtitle '$subtitle' \

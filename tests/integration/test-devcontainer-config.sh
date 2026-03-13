@@ -30,7 +30,7 @@ assert_file_exists "docker/Dockerfile"
 assert_file_exists "docker/build.sh"
 assert_file_exists "docker/run.sh"
 assert_file_exists "docker/common.sh"
-assert_file_exists "docker/bin/bash-tape"
+assert_file_exists "docker/bin/bash-tape-deck"
 
 assert_contains ".devcontainer/devcontainer.json" '"dockerfile": "Dockerfile"'
 assert_contains ".devcontainer/devcontainer.json" '"context": "."'
@@ -60,6 +60,6 @@ grep -F 'docker build --target engine -f docker/Dockerfile -t "$engine_image" .'
 grep -F -- '--user "${host_uid}:${host_gid}"' docker/common.sh >/dev/null || fail "Missing standard nested docker user mapping in docker/common.sh"
 assert_contains "docker/build.sh" './docker/build.sh --all <steps-dir>'
 assert_contains "docker/run.sh" './docker/run.sh play.sh <steps-dir> [N]'
-assert_contains "docker/Dockerfile" 'COPY docker/bin/bash-tape /usr/local/bin/bash-tape'
+assert_contains "docker/Dockerfile" 'COPY docker/bin/bash-tape-deck /usr/local/bin/bash-tape-deck'
 
 printf 'PASS: devcontainer configuration test\n'

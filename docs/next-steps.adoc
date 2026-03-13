@@ -2,7 +2,7 @@
 
 == Introduce a Session Model
 
-One of the next architectural improvements for Bash Tape is a first-class
+One of the next architectural improvements for {BashTapeDeck} is a first-class
 session model.
 Today, a tape run is mostly understood as "play a given `steps.N.sh`".
 The next stage is to treat a tape as a resumable session that can span
@@ -38,7 +38,7 @@ these conditions:
 * session fully ejected
 
 That model will likely build on top of the existing JSONL event log already
-stored under `.bash-tape/`, but it will require stronger semantics around what
+stored under `.bash-tape-deck/`, but it will require stronger semantics around what
 "completed successfully" means for a step file and when a rewind becomes
 mandatory.
 

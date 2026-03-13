@@ -6,8 +6,8 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_dir="$(cd "$script_dir/.." && pwd)"
 cd "$repo_dir"
 
-engine_image="${ENGINE_IMAGE:-bash-tape:engine}"
-sample_image_prefix="${SAMPLE_IMAGE_PREFIX:-bash-tape}"
+engine_image="${ENGINE_IMAGE:-bash-tape-deck:engine}"
+sample_image_prefix="${SAMPLE_IMAGE_PREFIX:-bash-tape-deck}"
 ext_file_name="${DOCKER_EXT_FILE:-docker.extend.sh}"
 commands_file_name="${DOCKER_COMMANDS_FILE:-docker.commands.sh}"
 host_uid="$(id -u)"
@@ -153,7 +153,7 @@ build_sample_image() {
     done
   fi
 
-  tmp_dockerfile="$(mktemp "${TMPDIR:-/tmp}/bash-tape-sample-docker.XXXXXX")"
+  tmp_dockerfile="$(mktemp "${TMPDIR:-/tmp}/bash-tape-deck-sample-docker.XXXXXX")"
 
   {
     printf 'FROM %s\n' "$engine_image"
@@ -167,9 +167,9 @@ build_sample_image() {
       printf '%s\n' "$dockerfile_line"
     done
 
-    printf 'COPY --chown=app:app %s /opt/bash-tape/steps\n' "$steps_dir_rel"
+    printf 'COPY --chown=app:app %s /opt/bash-tape-deck/steps\n' "$steps_dir_rel"
     printf 'ENV BASH_TAPE_SOURCE_STEPS_DIR="%s"\n' "$(printf '%s' "$steps_dir_rel" | sed 's/"/\\"/g')"
-    printf 'ENV BASH_TAPE_DEFAULT_STEPS_DIR=/opt/bash-tape/steps\n'
+    printf 'ENV BASH_TAPE_DEFAULT_STEPS_DIR=/opt/bash-tape-deck/steps\n'
     printf 'USER app\n'
     printf 'WORKDIR /workspace\n'
   } > "$tmp_dockerfile"

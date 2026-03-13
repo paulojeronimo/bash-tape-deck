@@ -3,12 +3,12 @@ skinparam monochrome true
 skinparam shadowing false
 skinparam packageStyle rectangle
 
-package "Bash Tape Engine" {
+package "Bash Tape Deck Engine" {
   [play.sh]
   [rewind.sh]
   [functions.sh]
   [docker/build.sh + docker/run.sh]
-  [docker/bin/bash-tape]
+  [docker/bin/bash-tape-deck]
 }
 
 package "Tape Directory" {
@@ -28,8 +28,8 @@ package "Tape Directory" {
 [rewind.sh] --> [steps.N.rewind.sh] : execute rewind
 [docker/build.sh + docker/run.sh] --> [docker.extend.sh] : optional image extension
 [docker/build.sh + docker/run.sh] --> [docker.commands.sh] : optional sample commands
-[docker/bin/bash-tape] --> [play.sh]
-[docker/bin/bash-tape] --> [rewind.sh]
+[docker/bin/bash-tape-deck] --> [play.sh]
+[docker/bin/bash-tape-deck] --> [rewind.sh]
 [functions.sh] ..> [play.sh]
 [functions.sh] ..> [rewind.sh]
 @enduml

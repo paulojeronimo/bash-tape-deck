@@ -3,14 +3,14 @@ skinparam monochrome true
 skinparam shadowing false
 skinparam packageStyle rectangle
 
-node "Engine Image\nbash-tape:engine" {
+node "Engine Image\nbash-tape-deck:engine" {
   [play.sh]
   [rewind.sh]
   [functions.sh]
-  [docker/bin/bash-tape]
+  [docker/bin/bash-tape-deck]
 }
 
-node "Tape Image\nbash-tape:<sample>" {
+node "Tape Image\nbash-tape-deck:<sample>" {
   [copied steps/]
   [sample packages]
   [sample commands]
@@ -26,5 +26,5 @@ folder "Host Workspace" {
 [copied steps/] --> [build/ or custom workdir]
 [play.sh] --> [build/ or custom workdir]
 [rewind.sh] --> [build/ or custom workdir]
-[Engine Image\nbash-tape:engine] <|-- [Tape Image\nbash-tape:<sample>]
+[Engine Image\nbash-tape-deck:engine] <|-- [Tape Image\nbash-tape-deck:<sample>]
 @enduml

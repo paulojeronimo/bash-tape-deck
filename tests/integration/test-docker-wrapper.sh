@@ -76,7 +76,7 @@ assert_file_exists "$run_workdir/demo-output/hook-end.txt"
 printf -- '-> generated files are present\n'
 
 section "Validate tape log"
-log_file="$(find "$run_workdir/.bash-tape" -maxdepth 1 -type f -name '*.jsonl' | head -n 1)"
+log_file="$(find "$run_workdir/.bash-tape-deck" -maxdepth 1 -type f -name '*.jsonl' | head -n 1)"
 [ -n "$log_file" ] || fail "Expected a tape JSONL log file"
 printf -- '-> log file: %s\n' "$log_file"
 
