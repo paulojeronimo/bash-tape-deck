@@ -1,0 +1,58 @@
+= Task: Update README documentation
+:task_id: 20260313-1241--docs--update-readme-documentation
+:type: docs
+:status: done
+:priority: high
+:created_at: 2026-03-13 12:41 UTC
+:owner: human
+:agent:
+:tags:
+
+== Objective
+
+Improve the README.adoc
+
+=== Update the `env-github` version used on GitHub
+
+. Review the project's description and context to understand its positioning.
+. Change the project tagline from `Shell tutorials for people who hate slide decks` to a better option based on that understanding.
+. Propose the new tagline and ask for human confirmation before applying it.
+. Create the missing `DevelopmentContainers` attribute.
+
+=== Update the non-`env-github` version used for PDF output
+
+. Adjust the references section heading so it matches the style used in the other documents.
+
+=== Add a section that explains the tools
+
+. Create a section that explains and details how the tools are used.
+
+=== Document the usage options for `cassette-art.sh`
+
+. Understand how the `cassette-art.sh` script works.
+. Produce example usages for the script.
+
+== Context
+
+Describe relevant context here.
+
+== Steps
+
+. Update the env-github sessions first.
+. Update the non env-github later.
+
+== Definition of Done
+
+. Document updated.
+
+== Execution Notes
+
+- Not started.
+
+== Decisions
+
+- None yet.
+
+== Blockers
+
+- None.

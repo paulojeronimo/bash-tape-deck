@@ -34,12 +34,12 @@ ifdef::env-github[]
 :Docker: Docker
 :LXD: LXD
 :Katacoda: Katacoda
-:DevelopementContainers: Development Containers
+:DevelopmentContainers: Development Containers
 :GitHubCodespaces: GitHub Codespaces
 endif::[]
 
 [.lead.text-center]
-*Shell tutorials for people who hate slide decks*
+*Replayable shell demonstrations, minus the slide deck*
 
 ifdef::env-github[]
 [text-center]
@@ -101,6 +101,9 @@ include::docs/requirements.adoc[]
 
 <<<
 include::docs/usage.adoc[]
+
+<<<
+include::docs/tools.adoc[]
 
 <<<
 include::docs/navigation.adoc[]

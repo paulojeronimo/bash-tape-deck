@@ -1,0 +1,163 @@
+= Tools
+
+The `tools/` directory contains scripts that support cassette art generation.
+
+[[tool-cassette-art]]
+== cassette-art.sh
+
+Renders a cassette-style ASCII art banner to the terminal using `toilet`.
+It can display a static frame or animate through colour cycles.
+
+.Usage
+[,bash]
+----
+tools/cassette-art.sh [options]
+----
+
+.Options
+[cols="2,3", options="header"]
+|===
+|Option |Description
+
+|`--label <text>`
+|Top label text.
+
+|`--subtitle <text>`
+|Subtitle rendered below the title.
+
+|`--github <owner/repo>`
+|Project repository shown below the title.
+
+|`--project-title <text>`
+|Project title shown in the bottom section.
+
+|`--project-url <text>`
+|Project URL shown below the bottom project title.
+
+|`--title-preset <preset>`
+|One of: `future`, `future-border`, `future-metal`, `future-border-metal`, `future-gay`, `future-border-gay`.
+
+|`--toilet-preset <preset>`
+|Alias for `--title-preset`.
+
+|`--title-font <font>`
+|Override the title font.
+
+|`--toilet-font <font>`
+|Alias for `--title-font`.
+
+|`--title-filter <filter>`
+|Extra `toilet` filter (repeatable).
+
+|`--toilet-filter <filter>`
+|Alias for `--title-filter`.
+
+|`--animate [n\|infinite]`
+|Animate the rendered title. Default: 1 repetition.
+
+|`--animate-frame <n>`
+|Render a single animation frame by index.
+
+|`--clear-screen`
+|Clear the full screen before rendering.
+
+|`--center [all\|top\|bottom]`
+|Centre horizontally and place vertically.
+
+|`--width <n>`
+|Render at a single fixed width.
+
+|`--min <n>`
+|Minimum width for range mode (default: 48).
+
+|`--max <n>`
+|Maximum width for range mode (default: terminal-based).
+
+|`--step <n>`
+|Step for range mode (default: 8).
+
+|`-h`, `--help`
+|Show help.
+|===
+
+.Examples
+[,bash]
+----
+# Static banner with default settings
+tools/cassette-art.sh
+
+# Custom label and subtitle
+tools/cassette-art.sh --label "MY TAPE" --subtitle "Step 1/5"
+
+# Animated, centred, metal preset
+tools/cassette-art.sh --animate --center --title-preset future-metal
+
+# Show a specific animation frame
+tools/cassette-art.sh --animate-frame 3 --title-preset future-gay
+
+# Render at a fixed width with a GitHub repo tag
+tools/cassette-art.sh --width 80 --github "your-name/your-repo"
+----
+
+[[tool-generate-art]]
+== generate-art.sh
+
+Orchestrates the full art generation pipeline: it resolves the optimal cassette
+width, records an animated asciinema session, converts it to `images/art.gif`
+with `agg`, and extracts a static `images/art.png` with `ffmpeg`.
+
+.Required commands
+`toilet`, `asciinema`, `agg`, `ffmpeg`
+
+.Usage
+[,bash]
+----
+tools/generate-art.sh
+----
+
+Configuration is passed through environment variables:
+
+.Environment variables
+[cols="2,2,3", options="header"]
+|===
+|Variable |Default |Description
+
+|`label`
+|`Your Bash Tape About XPTO`
+|Top label text passed to `cassette-art.sh`.
+
+|`subtitle`
+|`Steps 1/3`
+|Subtitle text passed to `cassette-art.sh`.
+
+|`github`
+|`your-name/bash-tape-deck-xpto`
+|GitHub `owner/repo` tag passed to `cassette-art.sh`.
+
+|`terminal_rows`
+|`25`
+|Terminal height used during the asciinema recording.
+
+|`animation_delay`
+|`0.02`
+|Delay in seconds between animation frames.
+
+|`cassette_width`
+|(auto-resolved)
+|Override the resolved cassette width.
+
+|`cassette_width_padding`
+|`8`
+|Extra columns added after auto-resolution.
+
+|`png_frame_time`
+|`0.5`
+|Timestamp (seconds) of the GIF frame extracted as a PNG.
+|===
+
+.Example
+[,bash]
+----
+label="AGENT SKILLS" subtitle="Demo 1/4" github="paulojeronimo/bash-tape-deck" \
+  tools/generate-art.sh
+----
