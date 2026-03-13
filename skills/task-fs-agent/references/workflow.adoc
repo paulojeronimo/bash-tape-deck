@@ -1,0 +1,45 @@
+= Workflow Rationale
+
+== Overview
+
+This skill treats the filesystem as a durable task queue.
+
+- A document is the task specification.
+- A directory is the task state.
+- A move operation is the state transition.
+
+== Why this works well
+
+- Humans can inspect task state visually.
+- Agents can coordinate through atomic moves.
+- Git keeps history.
+- No database, queue broker, or service is required.
+
+== Recommended repository layout
+
+[source,text]
+----
+<repo>/
+  skills/
+    task-fs-agent/
+  tasks/
+    01-inbox/
+    02-doing/
+    03-blocked/
+    04-review/
+    05-done/
+  .agents/
+    skills -> ../skills
+  .claude/
+    skills -> ../skills
+----
+
+== About assets and references
+
+The Agent Skills specification recommends:
+
+- `scripts/` for executable helpers
+- `references/` for extra documentation loaded on demand
+- `assets/` for templates and static resources
+
+This skill follows that structure so agents can discover helpers and templates without guessing their location.

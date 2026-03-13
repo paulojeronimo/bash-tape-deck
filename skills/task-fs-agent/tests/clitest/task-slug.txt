@@ -1,0 +1,7 @@
+$ scripts/task-slug.sh "Ação com espaços e ç"
+acao-com-espacos-e-c
+$ scripts/task-slug.sh "  Multiple   separators!!! "
+multiple-separators
+$ scripts/task-slug.sh "UPPER lower 123"
+upper-lower-123
+$

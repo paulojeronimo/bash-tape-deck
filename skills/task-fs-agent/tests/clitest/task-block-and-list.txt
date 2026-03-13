@@ -1,0 +1,26 @@
+$ TEST_REPO=$(mktemp -d)
+$ mkdir -p "$TEST_REPO/skills"
+$ ln -s "$PWD" "$TEST_REPO/skills/task-fs-agent"
+$ cd "$TEST_REPO"
+$ git init -q
+$ BLOCKED=$(skills/task-fs-agent/scripts/task-new.sh bugfix "Blocked Flow")
+$ TODO=$(skills/task-fs-agent/scripts/task-new.sh research "List Flow" low)
+$ BLOCKED=$(skills/task-fs-agent/scripts/task-claim.sh "$BLOCKED")
+$ BLOCKED=$(skills/task-fs-agent/scripts/task-block.sh "$BLOCKED" "Waiting for production logs")
+$ case "$BLOCKED" in "$TEST_REPO"/tasks/03-blocked/*--bugfix--blocked-flow.adoc) echo ok;; *) echo bad;; esac
+ok
+$ grep '^:status: blocked$' "$BLOCKED"
+:status: blocked
+$ sed -n '/^== Blockers$/,/^== /p' "$BLOCKED" | grep '^- Waiting for production logs$'
+- Waiting for production logs
+$ skills/task-fs-agent/scripts/task-list.sh | grep '^\[01-inbox\]$'
+[01-inbox]
+$ skills/task-fs-agent/scripts/task-list.sh | grep '^\[03-blocked\]$'
+[03-blocked]
+$ skills/task-fs-agent/scripts/task-list.sh | grep -Eq '.*/tasks/01-inbox/[0-9]{8}-[0-9]{4}--research--list-flow\.adoc$' && echo ok
+ok
+$ skills/task-fs-agent/scripts/task-list.sh | grep -Eq '.*/tasks/03-blocked/[0-9]{8}-[0-9]{4}--bugfix--blocked-flow\.adoc$' && echo ok
+ok
+$ cd /
+$ rm -rf "$TEST_REPO"
+$

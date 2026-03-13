@@ -1,0 +1,43 @@
+= Task: {{TITLE}}
+:task_id: {{TASK_ID}}
+:type: task
+:status: inbox
+:priority: medium
+:created_at: {{CREATED_AT}}
+:owner: human
+:agent:
+:tags:
+
+== Objective
+
+{{OBJECTIVE}}
+
+== Context
+
+{{CONTEXT}}
+
+== Inputs
+
+- 
+
+== Steps
+
+. 
+. 
+. 
+
+== Definition of Done
+
+- 
+
+== Execution Notes
+
+- Not started.
+
+== Decisions
+
+- None yet.
+
+== Blockers
+
+- None.

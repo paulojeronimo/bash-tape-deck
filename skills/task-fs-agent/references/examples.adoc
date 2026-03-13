@@ -1,0 +1,73 @@
+= Task FS Agent Examples
+
+This file shows the standard commands and expected outcomes.
+
+== Create a task
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-new.sh task "Create animated cassette demo"
+----
+
+Possible output:
+
+[source,text]
+----
+tasks/01-inbox/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+== List tasks
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-list.sh
+----
+
+== Claim a task
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-claim.sh \
+  tasks/01-inbox/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+Result:
+
+[source,text]
+----
+tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+== Add an execution note
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-note.sh \
+  tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc \
+  "Created first Bash prototype using ffmpeg and vhs"
+----
+
+== Move to review
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-review.sh \
+  tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+== Mark done
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-done.sh \
+  tasks/04-review/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+== Block a task
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-block.sh \
+  tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc \
+  "Missing audio sample file"
+----

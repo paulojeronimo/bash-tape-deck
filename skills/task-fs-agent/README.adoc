@@ -1,0 +1,347 @@
+= Task FS Agent
+:toc:
+:toclevels: 2
+
+Task FS Agent is a repository-local workflow for humans and AI agents to collaborate through task files stored in Git.
+
+The core idea is simple:
+
+- a task is an AsciiDoc file
+- the directory defines the task state
+- moving the file changes the state
+
+This skill is designed to be used by agents such as Codex and Claude Code, but it is also intended to remain inspectable and understandable by humans.
+
+== What This Skill Provides
+
+This skill standardizes:
+
+- task file naming
+- task templates
+- workflow states
+- helper scripts for safe and repeatable operations
+- automated CLI tests for the current helper behavior
+
+Expected repository layout:
+
+[source,text]
+----
+<repo>/
+  skills/
+    task-fs-agent/
+  tasks/
+    01-inbox/
+    02-doing/
+    03-blocked/
+    04-review/
+    05-done/
+  .agents/
+    skills -> ../skills
+  .claude/
+    skills -> ../skills
+----
+
+== Workflow Model
+
+The workflow uses these task states:
+
+- `01-inbox`: new tasks, not yet claimed
+- `02-doing`: task currently in progress
+- `03-blocked`: task cannot proceed safely
+- `04-review`: implementation finished, waiting for validation
+- `05-done`: accepted and complete
+
+Each task file uses a stable filename in this format:
+
+[source,text]
+----
+YYYYMMDD-HHMM--type--slug.adoc
+----
+
+Allowed task types:
+
+- `task`
+- `bugfix`
+- `research`
+- `docs`
+- `refactor`
+- `ops`
+
+== How Humans Should Use This Skill
+
+Humans usually do not manipulate task files directly. Instead, they ask the agent to use the skill and operate through the helper scripts.
+
+The recommended model is:
+
+1. A human asks the agent to create, claim, update, review, block, or complete a task.
+2. The agent uses the helper scripts in `scripts/`.
+3. The human reviews both the task file and the code changes in Git.
+
+You can also run the helper scripts manually if needed.
+
+== Using It With Codex
+
+In Codex-style environments, agent commands are triggered with instructions that start with `$`.
+
+Practical examples:
+
+[source,text]
+----
+$ Use the task-fs-agent skill and create a task named "Add integration tests for docker run flow".
+
+$ Use task-fs-agent to list open tasks and claim the highest-priority inbox task.
+
+$ Use task-fs-agent to append an execution note to the current task saying "Validated behavior in a temporary repo".
+
+$ Use task-fs-agent to move the current task to review.
+
+$ Use task-fs-agent to block the current task with reason "Waiting for production credentials".
+----
+
+What a good Codex request looks like:
+
+[source,text]
+----
+$ Use task-fs-agent. Create a bugfix task for "Fix invalid state transition in task-done", claim it as codex, implement the fix, add an execution note, and move it to review when finished.
+----
+
+== Using It With Claude Code
+
+In Claude Code-style environments, skills are invoked with slash commands that start with `/`.
+
+Practical examples:
+
+[source,text]
+----
+/task-fs-agent and create a research task titled "Evaluate task queue conventions"
+
+/task-fs-agent to list tasks and claim the oldest high-priority inbox task
+
+/task-fs-agent to add a note to the current task: "Reviewed current templates and scripts"
+
+/task-fs-agent to move the current task to blocked with reason "Missing API contract"
+----
+
+What a good Claude Code request looks like:
+
+[source,text]
+----
+/task-fs-agent. Create a docs task for "Document task workflow", work on it, keep execution notes updated, and move it to done only after review is complete.
+----
+
+== Practical Flows
+
+=== Create a Task
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-new.sh task "Create animated cassette demo"
+----
+
+Typical result:
+
+[source,text]
+----
+<repo>/tasks/01-inbox/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+=== Claim a Task
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-claim.sh \
+  tasks/01-inbox/20260313-1142--task--create-animated-cassette-demo.adoc \
+  codex
+----
+
+Effect:
+
+- updates `:agent:` when provided
+- updates `:status:` to `doing`
+- moves the file to `tasks/02-doing/`
+
+=== Add Execution Notes
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-note.sh \
+  tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc \
+  "Created the first working prototype"
+----
+
+Effect:
+
+- appends the note under `== Execution Notes`
+- preserves task history inside the file
+
+=== Move to Review
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-review.sh \
+  tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+Effect:
+
+- updates `:status:` to `review`
+- moves the file to `tasks/04-review/`
+
+=== Mark Done
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-done.sh \
+  tasks/04-review/20260313-1142--task--create-animated-cassette-demo.adoc
+----
+
+Effect:
+
+- updates `:status:` to `done`
+- moves the file to `tasks/05-done/`
+
+=== Block a Task
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-block.sh \
+  tasks/02-doing/20260313-1142--task--create-animated-cassette-demo.adoc \
+  "Missing audio sample file"
+----
+
+Effect:
+
+- appends the reason under `== Blockers`
+- updates `:status:` to `blocked`
+- moves the file to `tasks/03-blocked/`
+
+=== List Tasks
+
+Use:
+
+[source,bash]
+----
+skills/task-fs-agent/scripts/task-list.sh
+----
+
+This prints the current files grouped by workflow state.
+
+== Workflow Rules and Current Limitations
+
+The intended workflow rules are clear:
+
+- do not start work directly from `01-inbox`
+- claim first, then work in `02-doing`
+- use `04-review` before `05-done`
+- move to `03-blocked` only when progress is unsafe or impossible
+- never delete task files
+- prefer appending notes instead of rewriting history
+
+However, it is important to understand the current implementation boundary:
+
+- the skill strongly defines conventions
+- the scripts automate common transitions
+- the scripts do not fully enforce every workflow rule
+
+In practice, this means:
+
+- `task-done.sh` changes the task to `done`, but it does not verify that review really happened
+- helper scripts move files and update attributes, but they do not validate the full lifecycle policy
+- the workflow is reliable when humans and agents follow the contract, not because there is a hard policy engine
+
+So the correct human expectation is:
+
+- this is a disciplined filesystem workflow
+- not a fully enforced state machine
+
+== Automated Tests
+
+This skill includes automated tests in:
+
+[source,text]
+----
+tests/clitest/
+----
+
+The current suite covers the helper behavior for:
+
+- task creation
+- task claim
+- execution notes
+- review
+- done
+- blocked
+- task listing
+- slug generation
+
+Run the tests with:
+
+[source,bash]
+----
+CLITEST_BIN=/path/to/clitest bash tests/run-clitest.sh
+----
+
+If `clitest` is already installed in your `PATH`, this also works:
+
+[source,bash]
+----
+bash tests/run-clitest.sh
+----
+
+The test runner expects the `clitest` executable name from:
+
+- `CLITEST_BIN`, when set
+- `clitest` from `PATH`, otherwise
+
+== Why clitest Was Chosen
+
+The automated tests were intentionally written with `clitest`, by Aurelio Jargas.
+
+The author chose this approach because it is a trusted tool that has already been used successfully in several earlier projects, starting with:
+
+- https://github.com/paulojeronimo/git-labs
+
+That choice fits this skill well because:
+
+- the helpers are command-line tools
+- the expected behavior is naturally described as shell sessions
+- the tests remain readable to humans
+
+== Recommended Human Practice
+
+For day-to-day use:
+
+1. create tasks from templates
+2. claim before starting implementation
+3. keep execution notes updated
+4. use review before done
+5. use blocked only with a clear reason
+6. validate script changes with `shellcheck` and the `clitest` suite
+
+For agent-assisted use:
+
+- ask the agent explicitly to use `task-fs-agent`
+- ask for concrete state transitions
+- ask the agent to record notes in the task file
+- review both the task document and the resulting Git diff
+
+== Related Files
+
+- `SKILL.md`: agent-facing normative instructions
+- `references/examples.adoc`: quick usage examples
+- `references/workflow.adoc`: workflow rationale
+- `assets/task-templates/`: task templates
+- `scripts/`: helper scripts
+- `tests/clitest/`: automated tests

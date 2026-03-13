@@ -1,0 +1,57 @@
+= Bugfix: {{TITLE}}
+:task_id: {{TASK_ID}}
+:type: bugfix
+:status: inbox
+:priority: high
+:created_at: {{CREATED_AT}}
+:owner: human
+:agent:
+:tags: bug
+
+== Objective
+
+{{OBJECTIVE}}
+
+== Problem
+
+Describe the bug clearly.
+
+== Expected Behavior
+
+Describe what should happen.
+
+== Context
+
+{{CONTEXT}}
+
+== Inputs
+
+- Error logs
+- Reproduction steps
+- Related files
+
+== Steps
+
+. Reproduce the bug
+. Identify the root cause
+. Implement the fix
+. Validate the fix
+
+== Definition of Done
+
+- Bug reproduced
+- Root cause identified
+- Fix implemented
+- Validation completed
+
+== Execution Notes
+
+- Not started.
+
+== Decisions
+
+- None yet.
+
+== Blockers
+
+- None.

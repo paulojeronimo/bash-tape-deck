@@ -1,0 +1,33 @@
+$ TEST_REPO=$(mktemp -d)
+$ mkdir -p "$TEST_REPO/skills"
+$ ln -s "$PWD" "$TEST_REPO/skills/task-fs-agent"
+$ cd "$TEST_REPO"
+$ git init -q
+$ FILE=$(skills/task-fs-agent/scripts/task-new.sh task "Lifecycle Demo")
+$ case "$FILE" in "$TEST_REPO"/tasks/01-inbox/*--task--lifecycle-demo.adoc) echo ok;; *) echo bad;; esac
+ok
+$ grep '^:status: inbox$' "$FILE"
+:status: inbox
+$ FILE=$(skills/task-fs-agent/scripts/task-claim.sh "$FILE" codex)
+$ case "$FILE" in "$TEST_REPO"/tasks/02-doing/*--task--lifecycle-demo.adoc) echo ok;; *) echo bad;; esac
+ok
+$ grep '^:agent: codex$' "$FILE"
+:agent: codex
+$ grep '^:status: doing$' "$FILE"
+:status: doing
+$ skills/task-fs-agent/scripts/task-note.sh "$FILE" "Investigated workflow" >/dev/null
+$ sed -n '/^== Execution Notes$/,/^== /p' "$FILE" | grep '^- Investigated workflow$'
+- Investigated workflow
+$ FILE=$(skills/task-fs-agent/scripts/task-review.sh "$FILE")
+$ case "$FILE" in "$TEST_REPO"/tasks/04-review/*--task--lifecycle-demo.adoc) echo ok;; *) echo bad;; esac
+ok
+$ grep '^:status: review$' "$FILE"
+:status: review
+$ FILE=$(skills/task-fs-agent/scripts/task-done.sh "$FILE")
+$ case "$FILE" in "$TEST_REPO"/tasks/05-done/*--task--lifecycle-demo.adoc) echo ok;; *) echo bad;; esac
+ok
+$ grep '^:status: done$' "$FILE"
+:status: done
+$ cd /
+$ rm -rf "$TEST_REPO"
+$

@@ -1,0 +1,53 @@
+= Research: {{TITLE}}
+:task_id: {{TASK_ID}}
+:type: research
+:status: inbox
+:priority: medium
+:created_at: {{CREATED_AT}}
+:owner: human
+:agent:
+:tags: research
+
+== Objective
+
+{{OBJECTIVE}}
+
+== Research Questions
+
+. 
+. 
+. 
+
+== Context
+
+{{CONTEXT}}
+
+== Inputs
+
+- Existing docs
+- Constraints
+- Target environment
+
+== Expected Output
+
+- Short written recommendation
+- Tradeoffs
+- Suggested next step
+
+== Definition of Done
+
+- Questions answered
+- Tradeoffs documented
+- Recommendation produced
+
+== Execution Notes
+
+- Not started.
+
+== Decisions
+
+- None yet.
+
+== Blockers
+
+- None.
