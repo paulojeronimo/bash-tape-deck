@@ -63,6 +63,10 @@ Why I (*{_author}*) Built This {_open-source} Project
 Those scripts were already in good shape and did exactly what I wanted.
 The problem was presentation.
 
+I really like asciiart, as you can see above. But I also know there are people who would like to see something more impressive, like this:
+
+video::CDAL-3PxDvQ[youtube]
+
 Shell scripts are tedious to explain to an audience that does not know much Bash.
 I also did not want to use slides, and I definitely did not want to write yet another tutorial document like the many I had already produced before.
 
