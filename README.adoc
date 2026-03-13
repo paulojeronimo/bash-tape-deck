@@ -69,15 +69,7 @@ ifndef::env-github[]
 video::CDAL-3PxDvQ[youtube]
 endif::[]
 ifdef::env-github[]
-++++
-<iframe width="560" height="315"
-  src="https://www.youtube.com/embed/CDAL-3PxDvQ?si=2jcLODZwnHkr5483"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-</iframe>
-++++
+image:https://img.youtube.com/vi/CDAL-3PxDvQ/maxresdefault.jpg[link=https://youtu.be/CDAL-3PxDvQ]
 endif::[]
 
 Shell scripts are tedious to explain to an audience that does not know much Bash.
