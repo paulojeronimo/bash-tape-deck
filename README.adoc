@@ -65,7 +65,20 @@ The problem was presentation.
 
 I really like asciiart, as you can see above. But I also know there are people who would like to see something more impressive, like this:
 
+ifndef::env-github[]
 video::CDAL-3PxDvQ[youtube]
+endif::[]
+ifdef::env-github[]
+++++
+<iframe width="560" height="315"
+  src="https://www.youtube.com/embed/CDAL-3PxDvQ?si=2jcLODZwnHkr5483"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+++++
+endif::[]
 
 Shell scripts are tedious to explain to an audience that does not know much Bash.
 I also did not want to use slides, and I definitely did not want to write yet another tutorial document like the many I had already produced before.
